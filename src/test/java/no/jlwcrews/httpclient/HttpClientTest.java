@@ -20,7 +20,10 @@ public class HttpClientTest {
         HttpClientv2 client = new HttpClientv2();
         var response = client.makeRequest(host, port, request);
         System.out.println(response.getStatusLine());
+        response.getHeaders().forEach((key, value) -> System.out.println(key + " : " + value));
+        assert(response.getHeaders().get("Content-Type").equals("text/html; charset=utf-8"));
         assert(response.getStatusCode() == 200);
-
+        assert(response.getStatusMessage().equals("OK"));
+        System.out.println(response.getBody());
     }
 }
